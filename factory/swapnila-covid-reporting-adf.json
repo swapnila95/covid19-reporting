@@ -1,0 +1,9 @@
+{
+	"name": "swapnila-covid-reporting-adf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "98eb446b-edbb-4fd4-9148-d19446ec7c82",
+		"tenantId": "86d5f41a-2192-4050-b20a-19f0ff154b86"
+	}
+}
