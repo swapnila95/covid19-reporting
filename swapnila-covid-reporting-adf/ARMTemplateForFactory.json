@@ -383,17 +383,17 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/test')]",
+			"name": "[concat(parameters('factoryName'), '/pl_process_cases_and_deaths_data')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Lookup1",
-						"type": "Lookup",
+						"name": "df_transform_cases_deaths",
+						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
-							"timeout": "7.00:00:00",
+							"timeout": "1.00:00:00",
 							"retry": 0,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
@@ -401,58 +401,22 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"source": {
-								"type": "JsonSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "JsonReadSettings"
+							"dataflow": {
+								"referenceName": "df_transform_cases_deaths",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"CasesAndDeathSource": {},
+									"CountryLookup": {},
+									"CaseAndDeathsSink": {}
 								}
 							},
-							"dataset": {
-								"referenceName": "ds_ecdc_file_list",
-								"type": "DatasetReference",
-								"parameters": {}
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
 							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "ForEach1",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup1').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Set variable1",
-									"type": "SetVariable",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "sourceRelativeURL",
-										"value": {
-											"value": "@item().sourceRelativeURL",
-											"type": "Expression"
-										}
-									}
-								}
-							]
+							"traceLevel": "Fine"
 						}
 					}
 				],
@@ -460,15 +424,10 @@
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
 				},
-				"variables": {
-					"sourceRelativeURL": {
-						"type": "String"
-					}
-				},
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_ecdc_file_list')]"
+				"[concat(variables('factoryId'), '/dataflows/df_transform_cases_deaths')]"
 			]
 		},
 		{
@@ -625,7 +584,7 @@
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
-					"firstRowAsHeader": true,
+					"firstRowAsHeader": false,
 					"quoteChar": "\""
 				},
 				"schema": []
@@ -927,7 +886,7 @@
 						"          continent as string,",
 						"          population as integer,",
 						"          indicator as string,",
-						"          daily_count as integer,",
+						"          daily_count as short,",
 						"          date as date,",
 						"          rate_14_day as double,",
 						"          source as string",
