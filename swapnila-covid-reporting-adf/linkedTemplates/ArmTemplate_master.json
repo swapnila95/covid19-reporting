@@ -7,6 +7,18 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "swapnila-covid-reporting-adf"
 		},
+		"linkedService1_clusterPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterPassword' of 'linkedService1'"
+		},
+		"linkedService1_clusterSshPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterSshPassword' of 'linkedService1'"
+		},
+		"linkedService1_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'linkedService1'"
+		},
 		"ls_ablob_covidreportingsa_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_ablob_covidreportingsa'"
@@ -14,6 +26,22 @@
 		"ls_adls_covidreportingdl_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_adls_covidreportingdl'"
+		},
+		"linkedService1_properties_typeProperties_hostSubscriptionId": {
+			"type": "string",
+			"defaultValue": "7fd81396-5994-423b-b71d-45a110680764"
+		},
+		"linkedService1_properties_typeProperties_clusterResourceGroup": {
+			"type": "string",
+			"defaultValue": "covid-reporting-rg"
+		},
+		"linkedService1_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "ab1e4957-cd3c-4aec-90a5-bdacd70bae92"
+		},
+		"linkedService1_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "86d5f41a-2192-4050-b20a-19f0ff154b86"
 		},
 		"ls_adls_covidreportingdl_properties_typeProperties_url": {
 			"type": "string",
@@ -56,11 +84,32 @@
 					"ls_adls_covidreportingdl_accountKey": {
 						"value": "[parameters('ls_adls_covidreportingdl_accountKey')]"
 					},
+					"linkedService1_clusterPassword": {
+						"value": "[parameters('linkedService1_clusterPassword')]"
+					},
+					"linkedService1_clusterSshPassword": {
+						"value": "[parameters('linkedService1_clusterSshPassword')]"
+					},
+					"linkedService1_servicePrincipalKey": {
+						"value": "[parameters('linkedService1_servicePrincipalKey')]"
+					},
 					"ls_adls_covidreportingdl_properties_typeProperties_url": {
 						"value": "[parameters('ls_adls_covidreportingdl_properties_typeProperties_url')]"
 					},
 					"ls_http_opendata_ecdc_europa_eu_properties_typeProperties_url": {
 						"value": "[parameters('ls_http_opendata_ecdc_europa_eu_properties_typeProperties_url')]"
+					},
+					"linkedService1_properties_typeProperties_hostSubscriptionId": {
+						"value": "[parameters('linkedService1_properties_typeProperties_hostSubscriptionId')]"
+					},
+					"linkedService1_properties_typeProperties_clusterResourceGroup": {
+						"value": "[parameters('linkedService1_properties_typeProperties_clusterResourceGroup')]"
+					},
+					"linkedService1_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('linkedService1_properties_typeProperties_servicePrincipalId')]"
+					},
+					"linkedService1_properties_typeProperties_tenant": {
+						"value": "[parameters('linkedService1_properties_typeProperties_tenant')]"
 					}
 				}
 			},
