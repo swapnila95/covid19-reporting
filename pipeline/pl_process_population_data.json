@@ -1,10 +1,10 @@
 {
-	"name": "pl_process_testing_data",
+	"name": "pl_process_population_data",
 	"properties": {
 		"activities": [
 			{
-				"name": "Process Testing Data",
-				"type": "HDInsightHive",
+				"name": "Execute Population Transformation",
+				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
@@ -15,11 +15,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"scriptPath": "scripts/hql/covid_transform_testing.hql",
-					"scriptLinkedService": {
-						"referenceName": "ls_ablob_covidreportingsa",
-						"type": "LinkedServiceReference"
-					}
+					"notebookPath": "/covid/trans/transform_population_data"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_db_covid_cluster",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
