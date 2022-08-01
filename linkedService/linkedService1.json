@@ -7,14 +7,20 @@
 		"typeProperties": {
 			"clusterType": "hadoop",
 			"clusterSize": 2,
-			"timeToLive": "00:15:00",
+			"timeToLive": "00:30:00",
 			"version": "4.0",
 			"hostSubscriptionId": "7fd81396-5994-423b-b71d-45a110680764",
 			"clusterResourceGroup": "covid-reporting-rg",
 			"servicePrincipalId": "fb5f499e-4c24-41c3-bf75-fcb23cc41d8e",
 			"tenant": " 86d5f41a-2192-4050-b20a-19f0ff154b86",
-			"clusterNamePrefix": "swap",
-			"additionalLinkedServiceNames": [],
+			"clusterNamePrefix": "",
+			"clusterSshUserName": "swapnila",
+			"additionalLinkedServiceNames": [
+				{
+					"referenceName": "ls_ablob_covidreportingsa",
+					"type": "LinkedServiceReference"
+				}
+			],
 			"linkedServiceName": {
 				"referenceName": "ls_ablob_covidreportingsa",
 				"type": "LinkedServiceReference"
@@ -22,7 +28,7 @@
 			"headNodeSize": "",
 			"dataNodeSize": "",
 			"zookeeperNodeSize": "",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDY4MUZCQThFLThGOUEtNDI5QS1CODY0LTkzQUY3QzNDNjFFMV84ZDZhN2ZmZi1hZTMwLTQ0YzctOTczNy02OTFlNmFkN2U4MGMiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDY4MUZCQThFLThGOUEtNDI5QS1CODY0LTkzQUY3QzNDNjFFMV9jMjA1Y2U4ZC04NmIzLTRjNTAtODg1MC1jM2M5ZmQ0YWQyYTEiDQp9"
 		}
 	}
 }
