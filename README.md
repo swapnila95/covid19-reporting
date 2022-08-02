@@ -13,3 +13,5 @@
 
 - This is point 1
 - This is point 2
+
+![image](https://github.com/swapnila95/covid19-reporting/blob/main/assets/Pipeline%201.jpg)
