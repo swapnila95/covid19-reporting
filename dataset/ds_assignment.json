@@ -1,0 +1,23 @@
+{
+	"name": "ds_assignment",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_assignment",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "cases_deaths.csv",
+				"folderPath": "ecdc/cases_deaths",
+				"container": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
