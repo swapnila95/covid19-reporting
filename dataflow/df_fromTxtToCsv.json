@@ -21,11 +21,7 @@
 						"referenceName": "ds_sinkTxtToCSV",
 						"type": "DatasetReference"
 					},
-					"name": "sink1",
-					"rejectedDataLinkedService": {
-						"referenceName": "ls_adls_covidreportingdl",
-						"type": "LinkedServiceReference"
-					}
+					"name": "sink1"
 				}
 			],
 			"transformations": [
