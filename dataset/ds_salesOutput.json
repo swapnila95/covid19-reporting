@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "ProcessedDeath",
 				"fileSystem": "wafastudies-scenario-output"
 			},
 			"columnDelimiter": ",",
