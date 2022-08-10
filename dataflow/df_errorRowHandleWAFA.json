@@ -1,6 +1,9 @@
 {
 	"name": "df_errorRowHandleWAFA",
 	"properties": {
+		"folder": {
+			"name": "WafaStudiesScenario"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

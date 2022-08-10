@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "ds_WafaScenarioFolder"
+			"name": "WafaStudiesScenario"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
