@@ -11,6 +11,9 @@
 		"ls_adls_covidreportingdl_accountKey": {
 			"value": ""
 		},
+		"ls_assignment_connectionString": {
+			"value": ""
+		},
 		"ls_db_covid_cluster_accessToken": {
 			"value": ""
 		},
