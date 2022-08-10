@@ -18,10 +18,14 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "ds_sinkFromTxtToCSV",
+						"referenceName": "ds_sinkTxtToCSV",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "ls_adls_covidreportingdl",
+						"type": "LinkedServiceReference"
+					}
 				}
 			],
 			"transformations": [
@@ -57,7 +61,8 @@
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}
