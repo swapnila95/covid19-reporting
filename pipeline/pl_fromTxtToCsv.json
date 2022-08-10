@@ -1,0 +1,35 @@
+{
+	"name": "pl_fromTxtToCsv",
+	"properties": {
+		"activities": [
+			{
+				"name": "FromTxtToCsv",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_fromTxtToCsv",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "WafaStudiesScenario"
+		},
+		"annotations": []
+	}
+}
