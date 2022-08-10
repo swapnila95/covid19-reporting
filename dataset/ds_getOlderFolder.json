@@ -5,6 +5,9 @@
 			"referenceName": "ls_adls_covidreportingdl",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "ds_WafaScenarioFolder"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

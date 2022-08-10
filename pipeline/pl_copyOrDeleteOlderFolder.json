@@ -1,5 +1,5 @@
 {
-	"name": "pl_getOlderFolder",
+	"name": "pl_copyOrDeleteOlderFolder",
 	"properties": {
 		"activities": [
 			{
