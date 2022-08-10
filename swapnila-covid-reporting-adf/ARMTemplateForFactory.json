@@ -245,6 +245,56 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pl_fromTxtToCsv')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "DataFromTxtToCSV",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "df_fromTxtToCsv",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "WafaStudiesScenario"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/df_fromTxtToCsv')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pl_getFileNamesDynamically')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1383,7 +1433,7 @@
 					}
 				},
 				"folder": {
-					"name": "ds_WafaScenarioFolder"
+					"name": "WafaStudiesScenario"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -1459,7 +1509,7 @@
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "ds_WafaScenarioFolder"
+					"name": "WafaStudiesScenario"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -1783,6 +1833,40 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_fromTxtToCSV')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_covidreportingdl",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "WafaStudiesScenario"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "emp.txt",
+						"fileSystem": "wafastudies-scenario-input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidreportingdl')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ds_getOlderFolder')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1792,7 +1876,7 @@
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "ds_WafaScenarioFolder"
+					"name": "WafaStudiesScenario"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -2240,7 +2324,7 @@
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "ds_WafaScenarioFolder"
+					"name": "WafaStudiesScenario"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -2290,7 +2374,7 @@
 					}
 				},
 				"folder": {
-					"name": "ds_WafaScenarioFolder"
+					"name": "WafaStudiesScenario"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -2341,7 +2425,7 @@
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "ds_WafaScenarioFolder"
+					"name": "WafaStudiesScenario"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -2354,6 +2438,33 @@
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
 					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidreportingdl')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sinkTxtToCSV')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_covidreportingdl",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "output",
+						"fileSystem": "wafastudies-scenario-output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
 					"quoteChar": "\""
 				},
 				"schema": []
@@ -2560,7 +2671,7 @@
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "ds_WafaScenarioFolder"
+					"name": "WafaStudiesScenario"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -2766,6 +2877,9 @@
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"folder": {
+					"name": "WafaStudiesScenario"
+				},
 				"type": "MappingDataFlow",
 				"typeProperties": {
 					"sources": [
@@ -2875,6 +2989,78 @@
 				"[concat(variables('factoryId'), '/datasets/ds_SalesInput')]",
 				"[concat(variables('factoryId'), '/datasets/ds_salesBad')]",
 				"[concat(variables('factoryId'), '/datasets/ds_tblSales')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/df_fromTxtToCsv')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"folder": {
+					"name": "WafaStudiesScenario"
+				},
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_fromTxtToCSV",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ds_sinkTxtToCSV",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "derivedColumnsforCSV"
+						},
+						{
+							"name": "selectOnlyTheRequiredColumn"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Column_1 as string",
+						"     ),",
+						"     allowSchemaDrift: false,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source1",
+						"source1 derive(empID = substring(Column_1, 1, 4),",
+						"          empName = substring(Column_1, 5, 18),",
+						"          country = substring(Column_1, 23, 3),",
+						"          empContact = substring(Column_1, 26, 8)) ~> derivedColumnsforCSV",
+						"derivedColumnsforCSV select(mapColumn(",
+						"          empID,",
+						"          empName,",
+						"          country,",
+						"          empContact",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> selectOnlyTheRequiredColumn",
+						"selectOnlyTheRequiredColumn sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     partitionFileNames:['emp.csv'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_fromTxtToCSV')]",
+				"[concat(variables('factoryId'), '/datasets/ds_sinkTxtToCSV')]"
 			]
 		},
 		{
