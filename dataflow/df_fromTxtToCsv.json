@@ -53,12 +53,12 @@
 				"     skipDuplicateMapOutputs: true) ~> selectOnlyTheRequiredColumn",
 				"selectOnlyTheRequiredColumn sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     partitionFileNames:['emp.csv'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('hash', 1)) ~> sink1"
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
