@@ -13,6 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"folderPath": "output",
 				"fileSystem": "wafastudies-scenario-output"
 			},
 			"columnDelimiter": ",",
