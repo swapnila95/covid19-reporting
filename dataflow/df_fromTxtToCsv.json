@@ -36,7 +36,7 @@
 				"source(output(",
 				"          Column_1 as string",
 				"     ),",
-				"     allowSchemaDrift: true,",
+				"     allowSchemaDrift: false,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
 				"source1 derive(empID = substring(Column_1, 1, 4),",
