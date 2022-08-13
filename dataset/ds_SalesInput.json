@@ -7,8 +7,7 @@
 		},
 		"parameters": {
 			"fileName": {
-				"type": "string",
-				"defaultValue": "employees.csv"
+				"type": "string"
 			}
 		},
 		"folder": {
@@ -30,23 +29,6 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": [
-			{
-				"name": "saleDate",
-				"type": "String"
-			},
-			{
-				"name": "salesItem",
-				"type": "String"
-			},
-			{
-				"name": "country",
-				"type": "String"
-			},
-			{
-				"name": "quantity",
-				"type": "String"
-			}
-		]
+		"schema": []
 	}
 }
