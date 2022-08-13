@@ -1,0 +1,80 @@
+{
+	"name": "df_incrementKeyFromSource",
+	"properties": {
+		"folder": {
+			"name": "WafaStudiesScenario"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_SalesInput",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_SalesInput",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "surrogateKey1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as long,",
+				"          name as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source1 derive(dummy = 'dummy') ~> derivedColumn1",
+				"derivedColumn1 aggregate(groupBy(dummy),",
+				"     maxId = max(id)) ~> aggregate1",
+				"aggregate1, source2 join(1==1,",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 keyGenerate(output(id as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKey1",
+				"surrogateKey1 derive(Id = toLong(add(id, maxId))) ~> derivedColumn2",
+				"derivedColumn2 select(mapColumn(",
+				"          dummy,",
+				"          maxId,",
+				"          id = surrogateKey1@id,",
+				"          Id = derivedColumn2@Id",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1"
+			]
+		}
+	}
+}
