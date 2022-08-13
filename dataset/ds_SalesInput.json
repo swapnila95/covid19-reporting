@@ -5,6 +5,12 @@
 			"referenceName": "ls_adls_covidreportingdl",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"fileName": {
+				"type": "string",
+				"defaultValue": "Sales.csv"
+			}
+		},
 		"folder": {
 			"name": "WafaStudiesScenario"
 		},
@@ -13,6 +19,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().fileName",
+					"type": "Expression"
+				},
 				"fileSystem": "wafastudies-scenario-input"
 			},
 			"columnDelimiter": ",",
