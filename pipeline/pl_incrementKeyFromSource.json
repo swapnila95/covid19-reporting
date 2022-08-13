@@ -1,0 +1,46 @@
+{
+	"name": "pl_incrementKeyFromSource",
+	"properties": {
+		"activities": [
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_incrementKeyFromSource",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"source1": {
+								"fileName": "employees.csv"
+							},
+							"source2": {
+								"fileName": "new_emp.csv"
+							},
+							"sink1": {
+								"FileName": "employees.csv"
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "WafaStudiesScenario"
+		},
+		"annotations": []
+	}
+}
