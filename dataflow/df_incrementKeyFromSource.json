@@ -22,7 +22,15 @@
 					"name": "source2"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_salesInputFiles",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "derivedColumn1"
@@ -41,6 +49,12 @@
 				},
 				{
 					"name": "select1"
+				},
+				{
+					"name": "union1"
+				},
+				{
+					"name": "sort1"
 				}
 			],
 			"scriptLines": [
@@ -51,7 +65,10 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          name as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source2",
 				"source1 derive(dummy = 'dummy') ~> derivedColumn1",
@@ -67,13 +84,26 @@
 				"     stepValue: 1L) ~> surrogateKey1",
 				"surrogateKey1 derive(Id = toLong(add(id, maxId))) ~> derivedColumn2",
 				"derivedColumn2 select(mapColumn(",
-				"          dummy,",
-				"          maxId,",
-				"          id = surrogateKey1@id,",
-				"          Id = derivedColumn2@Id",
+				"          id = derivedColumn2@Id,",
+				"          name",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1, source1 union(byName: true)~> union1",
+				"union1 sort(asc(id, true)) ~> sort1",
+				"sort1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          saleDate as string,",
+				"          salesItem as string,",
+				"          country as string,",
+				"          quantity as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
