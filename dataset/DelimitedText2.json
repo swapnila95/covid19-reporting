@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Sales.csv",
+				"fileName": "testing.zip",
 				"fileSystem": "wafastudies-scenario-input"
 			},
 			"columnDelimiter": ",",
